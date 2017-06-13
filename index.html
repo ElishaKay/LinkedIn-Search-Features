@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>LinkedIn Search App</title>
+
+<style media="screen">
+ 
+
+  #webview1 {
+    height: 350px;
+    border: 1px solid grey;
+  }
+  input, button{
+    font-size: 2rem;
+  }
+  </style>
+
+  </head>
+  <body>
+ 
+<webview id="webview1" src="page1.html"></webview>
+<hr>
+<input id="url" type="text" placeholder="URL to Load">
+<button id="load">Load</button>
+
+<button id="goBack">Go Back</button>
+<button id="goForward">Go Forward</button>
+
+<h4 id="currentPage"></h4>
+
+<p class="indicator"></p>
+
+  </body>
+
+  <script>
+    
+  const webview = document.getElementById('webview1')
+
+  const url = document.getElementById('url')
+
+  const currentPage = document.getElementById('currentPage')
+
+
+
+  load.addEventListener('click', () => {
+    webview.loadURL(url.value)
+    console.log(url.value)
+  })
+
+  webview.addEventListener('did-navigate', (e) => {
+    currentPage.innerHTML = e.url
+    console.log(e.url)
+  })
+
+
+
+//Load is Pending Feature
+    const indicator = document.querySelector('.indicator')
+
+    const loadstart = () => {
+      indicator.innerText = 'loading...'
+    }
+
+
+//This is where we print the current URL
+    const loadstop = () => {
+      indicator.innerText = ''
+      var theurl = webview.getURL()
+      console.log("the current url is " + theurl)
+    }
+
+    webview.addEventListener('did-start-loading', loadstart)
+    webview.addEventListener('did-stop-loading', loadstop)
+
+
+//Go Back and Forth Feature
+function backView () {  
+    view.goBack();
+}
+
+function forwardView () {  
+    view.goForward();
+}
+
+
+goBack.addEventListener('click', () => {
+    webview.goBack();
+    var url = webview.getURL()
+    console.log("again the url is: " + url)
+  })
+
+goForward.addEventListener('click', () => {
+    webview.goForward();
+  })
+
+
+
+// Display the URL
+
+  </script>
+
+  </html>
