@@ -22,10 +22,13 @@
 <webview id="webview1" src="page1.html"></webview>
 <hr>
 <input id="url" type="text" placeholder="URL to Load">
-<button id="load">Load</button>
 
+<button id="load">Load</button>
 <button id="goBack">Go Back</button>
 <button id="goForward">Go Forward</button>
+<button id="cutThirdAddGroups">Cut 3rd Connections and Add Same Groups</button>
+
+
 
 <h4 id="currentPage"></h4>
 
@@ -51,6 +54,14 @@
   webview.addEventListener('did-navigate', (e) => {
     currentPage.innerHTML = e.url
     console.log(e.url)
+  })
+
+  cutThirdAddGroups.addEventListener('click', () => {
+    var url = webview.getURL()
+    url.replace('%5B%22S%22%2C%22O%22%5D', '%5B%22S%22%2C%22A%22%5D')
+    webview.loadURL(url)    
+    // var url = webview.getURL()
+    // console.log("Use this url in your campaign. It cut the third level connections, and also includes people who are in the same groups as you: " + url.value)
   })
 
 
@@ -87,7 +98,7 @@ function forwardView () {
 goBack.addEventListener('click', () => {
     webview.goBack();
     var url = webview.getURL()
-    console.log("again the url is: " + url)
+    console.log("the current url is: " + url)
   })
 
 goForward.addEventListener('click', () => {
